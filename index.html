@@ -1,1 +1,120 @@
-<h1>Hello!</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<meta property="og:image" content="heat_final.png" />
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Data for Data</title>
+	
+	<style type="text/css" media="screen">
+	
+		body {
+			line-height: 140%;
+			margin: auto;
+			width: 800px;
+		}
+		code {font-size: 120%;}
+		
+		
+		pre code {
+			background-color: #00bfb2;
+			color: #000000;
+			
+			display: block;
+			padding: 20px;
+		}
+		
+		.centered {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+}
+		
+	</style>
+	
+</head>
+
+<body bgcolor="000000" text="00bfb2">
+
+<style>
+ body {
+        counter-reset: h1counter;
+    }
+    h1 {
+        counter-reset: h2counter;
+    }
+    h2 {
+        counter-reset: h3counter;
+    }
+    h2:before {
+        content: counter(h2counter) ".\0000a0\0000a0";
+        counter-increment: h2counter;
+    }
+    h3:before {
+        content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+        counter-increment: h3counter;
+    }
+</style>
+	
+<h1 id="preamble">Data Structures for Data Analysis for Data Visualization</h1>
+
+<p>I analyzed the distrabution of Dungeons and Dragons monsters Challenge level compared to their Name in alphabetical order. To do so I had to split the list into two halves each containing 80 monsters.</p>
+
+
+
+<center>
+<img src="First.png" height=640px>
+</center>
+<img src="second.png" height=640px>
+</center>
+  
+<h2 >The Data</h2>
+  <p>I recieved the data through an excel sheet which included: the name, challenge rating,challenge xp, and all of the ability scores and their modifiers. They were all in one collum seperated by ";" and in a random order. In order to fix this I seperated the data into collums by the ";". I think used the panda sort method to alphabetically sort all of the monsters names. </p>
+
+<pre><code># 
+df = pandas.read_csv (r'C:\Users\sophc\OneDrive\Documents\comp sci project\monsters.csv', on_bad_lines='skip', sep = ';')
+sort = df.sort_values(by=['Name', 'ChallengeXP'])
+first = sort[['Name', 'ChallengeRating']].head(80)
+second = sort[['Name', 'ChallengeRating']].tail(80)
+			
+I ran into one problem spot which was that one of the lines from the data set was incorrectly put into the excel sheet. to rectify this I had the code skip over that line.
+<h2 >The Graph</h2>
+
+After sorting and splitting the data set into two pieces I constructed the graph.
+<pre><code>#
+import pandas
+import seaborn as sns
+import matplotlib.pyplot as plt
+def First():
+    sns.set(rc = {'figure.figsize':(25,9)})
+    plt.title = "name vs challenge rating"
+    sns.set(font_scale=.5)
+    plt.xlabel('Name', labelpad=40)
+    sns.scatterplot(x='Name', y = 'ChallengeRating', data = first)
+    plt.xticks(rotation=45)
+    sns.despine
+    plt.show()
+    
+def Second():
+    sns.set(rc = {'figure.figsize':(25,9)})
+    plt.title = "name vs challenge rating"
+    sns.set(font_scale=.5)
+    plt.xlabel('Name', labelpad=40)
+    sns.scatterplot(x='Name', y = 'ChallengeRating', data = second)
+    plt.xticks(rotation=45)
+    sns.despine
+    plt.show()
+    
+<p>Due to the large amount of names I made the font size smaller in order to fit everything together. Howewever unfortunately some of the names still overlapped I am not sure why this is.</p>
+<p>I also rotated the names on the x-axis in order to better fit them onto the graph.</p>
+<p>I also imported all of the things at the top of the code in order to have the vizualization of the graph and used shorter versions in order to keep my code less complicated.</p>
+<h2 >where to improve</h2>
+<p> if I were to re do this project with more time I would fix the overlapping name as well as create more graphs corisponding to the other available data. I would also make the graph more efficient by eliminating the two objects that do the same thing and make them into one. I would also like to add more color</p>
+
+
+</body>
+</html>
